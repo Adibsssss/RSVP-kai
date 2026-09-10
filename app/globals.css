@@ -2,47 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+}
 
 body {
   background:
-    radial-gradient(circle at 90% 6%, rgba(143, 199, 236, 0.45), transparent 30rem),
-    radial-gradient(circle at 6% 20%, rgba(191, 227, 250, 0.5), transparent 26rem),
+    radial-gradient(
+      circle at 90% 6%,
+      rgba(143, 199, 236, 0.45),
+      transparent 30rem
+    ),
+    radial-gradient(
+      circle at 6% 20%,
+      rgba(191, 227, 250, 0.5),
+      transparent 26rem
+    ),
     #f3f9fe;
   -webkit-tap-highlight-color: transparent;
 }
 
 .envelope-scene {
   background:
-    radial-gradient(circle at 15% 10%, rgba(255, 255, 255, 0.95), transparent 18rem),
-    radial-gradient(circle at 83% 18%, rgba(191, 227, 250, 0.9), transparent 18rem),
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(255, 255, 255, 0.95),
+      transparent 18rem
+    ),
+    radial-gradient(
+      circle at 83% 18%,
+      rgba(191, 227, 250, 0.9),
+      transparent 18rem
+    ),
     linear-gradient(160deg, #f8fcff 0%, #dceefb 100%);
 }
 
 .envelope-body {
   background:
-    radial-gradient(ellipse at 30% 15%, rgba(255,255,255,.1), transparent 33%),
-    radial-gradient(ellipse at 82% 85%, rgba(0,0,0,.34), transparent 46%),
-    repeating-linear-gradient(-9deg, rgba(255,255,255,.025) 0 1px, transparent 1px 4px),
+    radial-gradient(
+      ellipse at 30% 15%,
+      rgba(255, 255, 255, 0.1),
+      transparent 33%
+    ),
+    radial-gradient(ellipse at 82% 85%, rgba(0, 0, 0, 0.34), transparent 46%),
+    repeating-linear-gradient(
+      -9deg,
+      rgba(255, 255, 255, 0.025) 0 1px,
+      transparent 1px 4px
+    ),
     linear-gradient(145deg, #294953 0%, #1b3540 52%, #142b34 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.17), inset 0 -2px 0 rgba(0,0,0,.4), 0 4px 3px rgba(0,0,0,.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.17),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.4),
+    0 4px 3px rgba(0, 0, 0, 0.25);
 }
 
 .envelope-rim {
-  border: 1px dashed rgba(255,255,255,.26);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.16);
+  border: 1px dashed rgba(255, 255, 255, 0.26);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
+}
+
+.envelope-crease {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.22) 20%,
+    rgba(255, 255, 255, 0.22) 80%,
+    transparent
+  );
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.28);
+  pointer-events: none;
 }
 
 .envelope-flap {
   background:
-    radial-gradient(ellipse at 48% 5%, rgba(255,255,255,.13), transparent 48%),
-    repeating-linear-gradient(-8deg, rgba(255,255,255,.025) 0 1px, transparent 1px 4px),
+    radial-gradient(
+      ellipse at 48% 5%,
+      rgba(255, 255, 255, 0.13),
+      transparent 48%
+    ),
+    repeating-linear-gradient(
+      -8deg,
+      rgba(255, 255, 255, 0.025) 0 1px,
+      transparent 1px 4px
+    ),
     linear-gradient(145deg, #34545d 0%, #1a3640 62%, #112a32 100%);
-  filter: drop-shadow(0 3px 2px rgba(0,0,0,.42));
+  filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.42));
 }
 
 .real-wax-seal {
-  filter: drop-shadow(0 7px 8px rgba(0,0,0,.4));
+  filter: drop-shadow(0 7px 8px rgba(0, 0, 0, 0.4));
 }
 
 .balloon {
@@ -51,8 +106,11 @@ body {
   width: 4.4rem;
   height: 5.25rem;
   border-radius: 50% 50% 47% 47%;
-  opacity: .8;
-  box-shadow: inset -10px -12px 18px rgba(23,50,89,.12), inset 8px 8px 12px rgba(255,255,255,.45), 0 12px 25px rgba(23,50,89,.08);
+  opacity: 0.8;
+  box-shadow:
+    inset -10px -12px 18px rgba(23, 50, 89, 0.12),
+    inset 8px 8px 12px rgba(255, 255, 255, 0.45),
+    0 12px 25px rgba(23, 50, 89, 0.08);
 }
 
 .balloon::before {
@@ -74,38 +132,112 @@ body {
   left: 50%;
   width: 1px;
   height: 4.75rem;
-  background: rgba(92,114,144,.45);
+  background: rgba(92, 114, 144, 0.45);
   transform: rotate(8deg);
   transform-origin: top;
 }
 
-.balloon-blue { top: 8%; left: 9%; background: #78b7e4; transform: rotate(-9deg); }
-.balloon-cloud { top: 16%; right: 7%; background: #f7fcff; transform: rotate(12deg) scale(.78); }
-.balloon-sky { bottom: 4%; right: 14%; background: #a8d7f3; transform: rotate(10deg) scale(.68); }
-.balloon-confetti { bottom: 8%; left: 11%; background: radial-gradient(circle at 25% 25%, #fff 0 4%, transparent 5%), radial-gradient(circle at 70% 35%, #e95472 0 5%, transparent 6%), radial-gradient(circle at 48% 70%, #ffd65a 0 6%, transparent 7%), #75c1ae; transform: rotate(-14deg) scale(.68); }
-.balloon-stripe { top: 31%; left: 3%; background: repeating-linear-gradient(135deg, #ffdd6c 0 7px, #f58b9c 7px 14px, #8cc8f1 14px 21px); transform: rotate(11deg) scale(.57); }
-.balloon-home-one { top: 11rem; left: -1.5rem; background: #a8d7f3; transform: rotate(-12deg) scale(.72); }
-.balloon-home-two { top: 31rem; right: -1.25rem; background: #77b7e2; transform: rotate(12deg) scale(.62); }
-.balloon-home-three { top: 5rem; right: 5%; background: repeating-linear-gradient(135deg, #f8a1b1 0 8px, #ffd96f 8px 16px); transform: rotate(11deg) scale(.55); }
-.balloon-home-four { bottom: 3rem; left: 5%; background: radial-gradient(circle at 26% 28%, #fff 0 4%, transparent 5%), radial-gradient(circle at 70% 68%, #e95472 0 5%, transparent 6%), #74bea8; transform: rotate(-10deg) scale(.6); }
+.balloon-blue {
+  top: 8%;
+  left: 9%;
+  background: #78b7e4;
+  transform: rotate(-9deg);
+}
+.balloon-cloud {
+  top: 16%;
+  right: 7%;
+  background: #f7fcff;
+  transform: rotate(12deg) scale(0.78);
+}
+.balloon-sky {
+  bottom: 4%;
+  right: 14%;
+  background: #a8d7f3;
+  transform: rotate(10deg) scale(0.68);
+}
+.balloon-confetti {
+  bottom: 8%;
+  left: 11%;
+  background:
+    radial-gradient(circle at 25% 25%, #fff 0 4%, transparent 5%),
+    radial-gradient(circle at 70% 35%, #e95472 0 5%, transparent 6%),
+    radial-gradient(circle at 48% 70%, #ffd65a 0 6%, transparent 7%), #75c1ae;
+  transform: rotate(-14deg) scale(0.68);
+}
+.balloon-stripe {
+  top: 31%;
+  left: 3%;
+  background: repeating-linear-gradient(
+    135deg,
+    #ffdd6c 0 7px,
+    #f58b9c 7px 14px,
+    #8cc8f1 14px 21px
+  );
+  transform: rotate(11deg) scale(0.57);
+}
+.balloon-home-one {
+  top: 11rem;
+  left: -1.5rem;
+  background: #a8d7f3;
+  transform: rotate(-12deg) scale(0.72);
+}
+.balloon-home-two {
+  top: 31rem;
+  right: -1.25rem;
+  background: #77b7e2;
+  transform: rotate(12deg) scale(0.62);
+}
+.balloon-home-three {
+  top: 5rem;
+  right: 5%;
+  background: repeating-linear-gradient(
+    135deg,
+    #f8a1b1 0 8px,
+    #ffd96f 8px 16px
+  );
+  transform: rotate(11deg) scale(0.55);
+}
+.balloon-home-four {
+  bottom: 3rem;
+  left: 5%;
+  background:
+    radial-gradient(circle at 26% 28%, #fff 0 4%, transparent 5%),
+    radial-gradient(circle at 70% 68%, #e95472 0 5%, transparent 6%), #74bea8;
+  transform: rotate(-10deg) scale(0.6);
+}
 
 .graffiti {
   position: absolute;
   z-index: 0;
-  color: rgba(61,132,196,.13);
+  color: rgba(61, 132, 196, 0.13);
   font-family: "DM Sans Variable", system-ui, sans-serif;
   font-size: clamp(2.5rem, 9vw, 5.6rem);
   font-weight: 900;
-  letter-spacing: -.12em;
-  line-height: .8;
-  text-shadow: 2px 2px 0 rgba(255,255,255,.48), -1px -1px 0 rgba(23,50,89,.08);
+  letter-spacing: -0.12em;
+  line-height: 0.8;
+  text-shadow:
+    2px 2px 0 rgba(255, 255, 255, 0.48),
+    -1px -1px 0 rgba(23, 50, 89, 0.08);
   transform: rotate(-12deg);
   user-select: none;
 }
 
-.graffiti-kai { top: 16%; right: 9%; }
-.graffiti-party { bottom: 20%; left: 3%; font-size: clamp(1.4rem, 5vw, 2.5rem); transform: rotate(10deg); }
-.graffiti-home { top: 22rem; right: 5%; color: rgba(245,139,156,.18); transform: rotate(12deg); }
+.graffiti-kai {
+  top: 16%;
+  right: 9%;
+}
+.graffiti-party {
+  bottom: 20%;
+  left: 3%;
+  font-size: clamp(1.4rem, 5vw, 2.5rem);
+  transform: rotate(10deg);
+}
+.graffiti-home {
+  top: 22rem;
+  right: 5%;
+  color: rgba(245, 139, 156, 0.18);
+  transform: rotate(12deg);
+}
 
 .polaroid-frame {
   background: #ffffff;
@@ -116,7 +248,9 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

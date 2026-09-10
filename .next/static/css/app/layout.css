@@ -597,8 +597,14 @@ video {
   left: 12%;
   right: 12%;
 }
+.bottom-2 {
+  bottom: 0.5rem;
+}
 .left-1\/2 {
   left: 50%;
+}
+.right-2 {
+  right: 0.5rem;
 }
 .top-0 {
   top: 0px;
@@ -667,11 +673,14 @@ video {
 .h-1\/2 {
   height: 50%;
 }
+.h-5 {
+  height: 1.25rem;
+}
 .h-\[4\.5rem\] {
   height: 4.5rem;
 }
-.h-\[5\.3rem\] {
-  height: 5.3rem;
+.h-\[5\.6rem\] {
+  height: 5.6rem;
 }
 .h-\[58\%\] {
   height: 58%;
@@ -685,8 +694,11 @@ video {
 .min-h-screen {
   min-height: 100vh;
 }
-.w-\[5\.3rem\] {
-  width: 5.3rem;
+.w-5 {
+  width: 1.25rem;
+}
+.w-\[5\.6rem\] {
+  width: 5.6rem;
 }
 .w-\[58\%\] {
   width: 58%;
@@ -735,6 +747,14 @@ video {
   --tw-rotate: -2deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.rotate-0 {
+  --tw-rotate: 0deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.rotate-2 {
+  --tw-rotate: 2deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 @keyframes flap-open {
 
   0% {
@@ -763,25 +783,78 @@ video {
 .animate-float-in {
   animation: float-in 550ms cubic-bezier(0.22,1,0.36,1) both;
 }
-@keyframes seal-vanish {
+@keyframes monogram-fade {
 
   0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1);
   }
 
-  20% {
-    opacity: 1;
-    transform: translate(-50%, -62%) scale(1.1) rotate(-4deg);
+  30% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1.15);
   }
 
   100% {
     opacity: 0;
-    transform: translate(-50%, -420%) scale(0.72) rotate(18deg);
+    transform: translate(-50%, -65%) scale(0.75);
   }
 }
-.animate-seal-vanish {
-  animation: seal-vanish 720ms cubic-bezier(0.2,0.85,0.25,1) forwards;
+.animate-monogram-fade {
+  animation: monogram-fade 650ms ease-out forwards;
+}
+@keyframes seal-crack-left {
+
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+
+  25% {
+    transform: translate(-4%, -6%) rotate(-8deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-70%, -140%) rotate(-42deg);
+    opacity: 0;
+  }
+}
+.animate-seal-crack-left {
+  animation: seal-crack-left 760ms cubic-bezier(0.2,0.85,0.25,1) forwards;
+}
+@keyframes seal-crack-right {
+
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+
+  25% {
+    transform: translate(4%, -6%) rotate(8deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(70%, -140%) rotate(42deg);
+    opacity: 0;
+  }
+}
+.animate-seal-crack-right {
+  animation: seal-crack-right 760ms cubic-bezier(0.2,0.85,0.25,1) forwards;
+}
+@keyframes seal-idle {
+
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(1.04) rotate(-1.5deg);
+  }
+}
+.animate-seal-idle {
+  animation: seal-idle 2.6s ease-in-out infinite;
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -829,8 +902,8 @@ video {
 .rounded-\[2px\] {
   border-radius: 2px;
 }
-.rounded-\[5px\] {
-  border-radius: 5px;
+.rounded-\[6px\] {
+  border-radius: 6px;
 }
 .rounded-full {
   border-radius: 9999px;
@@ -1088,8 +1161,11 @@ video {
 .opacity-100 {
   opacity: 1;
 }
-.opacity-35 {
-  opacity: 0.35;
+.opacity-40 {
+  opacity: 0.4;
+}
+.opacity-70 {
+  opacity: 0.7;
 }
 .opacity-80 {
   opacity: 0.8;
@@ -1097,8 +1173,8 @@ video {
 .mix-blend-multiply {
   mix-blend-mode: multiply;
 }
-.mix-blend-screen {
-  mix-blend-mode: screen;
+.mix-blend-overlay {
+  mix-blend-mode: overlay;
 }
 .shadow-\[0_-1px_0_rgba\(255\2c 255\2c 255\2c \.8\)\2c 0_4px_10px_rgba\(0\2c 0\2c 0\2c \.28\)\] {
   --tw-shadow: 0 -1px 0 rgba(255,255,255,.8),0 4px 10px rgba(0,0,0,.28);
@@ -1129,12 +1205,20 @@ video {
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
+.contrast-125 {
+  --tw-contrast: contrast(1.25);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
 .drop-shadow-\[0_1px_0_rgba\(255\2c 255\2c 255\2c 0\.9\)\] {
   --tw-drop-shadow: drop-shadow(0 1px 0 rgba(255,255,255,0.9));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .drop-shadow-\[0_24px_26px_rgba\(23\2c 50\2c 89\2c 0\.24\)\] {
   --tw-drop-shadow: drop-shadow(0 24px 26px rgba(23,50,89,0.24));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.grayscale {
+  --tw-grayscale: grayscale(100%);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .filter {
@@ -1154,6 +1238,14 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.duration-300 {
+  transition-duration: 300ms;
+}
 .duration-500 {
   transition-duration: 500ms;
 }
@@ -1161,47 +1253,102 @@ video {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+}
 
 body {
   background:
-    radial-gradient(circle at 90% 6%, rgba(143, 199, 236, 0.45), transparent 30rem),
-    radial-gradient(circle at 6% 20%, rgba(191, 227, 250, 0.5), transparent 26rem),
+    radial-gradient(
+      circle at 90% 6%,
+      rgba(143, 199, 236, 0.45),
+      transparent 30rem
+    ),
+    radial-gradient(
+      circle at 6% 20%,
+      rgba(191, 227, 250, 0.5),
+      transparent 26rem
+    ),
     #f3f9fe;
   -webkit-tap-highlight-color: transparent;
 }
 
 .envelope-scene {
   background:
-    radial-gradient(circle at 15% 10%, rgba(255, 255, 255, 0.95), transparent 18rem),
-    radial-gradient(circle at 83% 18%, rgba(191, 227, 250, 0.9), transparent 18rem),
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(255, 255, 255, 0.95),
+      transparent 18rem
+    ),
+    radial-gradient(
+      circle at 83% 18%,
+      rgba(191, 227, 250, 0.9),
+      transparent 18rem
+    ),
     linear-gradient(160deg, #f8fcff 0%, #dceefb 100%);
 }
 
 .envelope-body {
   background:
-    radial-gradient(ellipse at 30% 15%, rgba(255,255,255,.1), transparent 33%),
-    radial-gradient(ellipse at 82% 85%, rgba(0,0,0,.34), transparent 46%),
-    repeating-linear-gradient(-9deg, rgba(255,255,255,.025) 0 1px, transparent 1px 4px),
+    radial-gradient(
+      ellipse at 30% 15%,
+      rgba(255, 255, 255, 0.1),
+      transparent 33%
+    ),
+    radial-gradient(ellipse at 82% 85%, rgba(0, 0, 0, 0.34), transparent 46%),
+    repeating-linear-gradient(
+      -9deg,
+      rgba(255, 255, 255, 0.025) 0 1px,
+      transparent 1px 4px
+    ),
     linear-gradient(145deg, #294953 0%, #1b3540 52%, #142b34 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.17), inset 0 -2px 0 rgba(0,0,0,.4), 0 4px 3px rgba(0,0,0,.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.17),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.4),
+    0 4px 3px rgba(0, 0, 0, 0.25);
 }
 
 .envelope-rim {
-  border: 1px dashed rgba(255,255,255,.26);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.16);
+  border: 1px dashed rgba(255, 255, 255, 0.26);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
+}
+
+.envelope-crease {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.22) 20%,
+    rgba(255, 255, 255, 0.22) 80%,
+    transparent
+  );
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.28);
+  pointer-events: none;
 }
 
 .envelope-flap {
   background:
-    radial-gradient(ellipse at 48% 5%, rgba(255,255,255,.13), transparent 48%),
-    repeating-linear-gradient(-8deg, rgba(255,255,255,.025) 0 1px, transparent 1px 4px),
+    radial-gradient(
+      ellipse at 48% 5%,
+      rgba(255, 255, 255, 0.13),
+      transparent 48%
+    ),
+    repeating-linear-gradient(
+      -8deg,
+      rgba(255, 255, 255, 0.025) 0 1px,
+      transparent 1px 4px
+    ),
     linear-gradient(145deg, #34545d 0%, #1a3640 62%, #112a32 100%);
-  filter: drop-shadow(0 3px 2px rgba(0,0,0,.42));
+  filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.42));
 }
 
 .real-wax-seal {
-  filter: drop-shadow(0 7px 8px rgba(0,0,0,.4));
+  filter: drop-shadow(0 7px 8px rgba(0, 0, 0, 0.4));
 }
 
 .balloon {
@@ -1210,8 +1357,11 @@ body {
   width: 4.4rem;
   height: 5.25rem;
   border-radius: 50% 50% 47% 47%;
-  opacity: .8;
-  box-shadow: inset -10px -12px 18px rgba(23,50,89,.12), inset 8px 8px 12px rgba(255,255,255,.45), 0 12px 25px rgba(23,50,89,.08);
+  opacity: 0.8;
+  box-shadow:
+    inset -10px -12px 18px rgba(23, 50, 89, 0.12),
+    inset 8px 8px 12px rgba(255, 255, 255, 0.45),
+    0 12px 25px rgba(23, 50, 89, 0.08);
 }
 
 .balloon::before {
@@ -1233,40 +1383,114 @@ body {
   left: 50%;
   width: 1px;
   height: 4.75rem;
-  background: rgba(92,114,144,.45);
+  background: rgba(92, 114, 144, 0.45);
   transform: rotate(8deg);
   transform-origin: top;
 }
 
-.balloon-blue { top: 8%; left: 9%; background: #78b7e4; transform: rotate(-9deg); }
-.balloon-cloud { top: 16%; right: 7%; background: #f7fcff; transform: rotate(12deg) scale(.78); }
-.balloon-sky { bottom: 4%; right: 14%; background: #a8d7f3; transform: rotate(10deg) scale(.68); }
-.balloon-confetti { bottom: 8%; left: 11%; background: radial-gradient(circle at 25% 25%, #fff 0 4%, transparent 5%), radial-gradient(circle at 70% 35%, #e95472 0 5%, transparent 6%), radial-gradient(circle at 48% 70%, #ffd65a 0 6%, transparent 7%), #75c1ae; transform: rotate(-14deg) scale(.68); }
-.balloon-stripe { top: 31%; left: 3%; background: repeating-linear-gradient(135deg, #ffdd6c 0 7px, #f58b9c 7px 14px, #8cc8f1 14px 21px); transform: rotate(11deg) scale(.57); }
-.balloon-home-one { top: 11rem; left: -1.5rem; background: #a8d7f3; transform: rotate(-12deg) scale(.72); }
-.balloon-home-two { top: 31rem; right: -1.25rem; background: #77b7e2; transform: rotate(12deg) scale(.62); }
-.balloon-home-three { top: 5rem; right: 5%; background: repeating-linear-gradient(135deg, #f8a1b1 0 8px, #ffd96f 8px 16px); transform: rotate(11deg) scale(.55); }
-.balloon-home-four { bottom: 3rem; left: 5%; background: radial-gradient(circle at 26% 28%, #fff 0 4%, transparent 5%), radial-gradient(circle at 70% 68%, #e95472 0 5%, transparent 6%), #74bea8; transform: rotate(-10deg) scale(.6); }
+.balloon-blue {
+  top: 8%;
+  left: 9%;
+  background: #78b7e4;
+  transform: rotate(-9deg);
+}
+.balloon-cloud {
+  top: 16%;
+  right: 7%;
+  background: #f7fcff;
+  transform: rotate(12deg) scale(0.78);
+}
+.balloon-sky {
+  bottom: 4%;
+  right: 14%;
+  background: #a8d7f3;
+  transform: rotate(10deg) scale(0.68);
+}
+.balloon-confetti {
+  bottom: 8%;
+  left: 11%;
+  background:
+    radial-gradient(circle at 25% 25%, #fff 0 4%, transparent 5%),
+    radial-gradient(circle at 70% 35%, #e95472 0 5%, transparent 6%),
+    radial-gradient(circle at 48% 70%, #ffd65a 0 6%, transparent 7%), #75c1ae;
+  transform: rotate(-14deg) scale(0.68);
+}
+.balloon-stripe {
+  top: 31%;
+  left: 3%;
+  background: repeating-linear-gradient(
+    135deg,
+    #ffdd6c 0 7px,
+    #f58b9c 7px 14px,
+    #8cc8f1 14px 21px
+  );
+  transform: rotate(11deg) scale(0.57);
+}
+.balloon-home-one {
+  top: 11rem;
+  left: -1.5rem;
+  background: #a8d7f3;
+  transform: rotate(-12deg) scale(0.72);
+}
+.balloon-home-two {
+  top: 31rem;
+  right: -1.25rem;
+  background: #77b7e2;
+  transform: rotate(12deg) scale(0.62);
+}
+.balloon-home-three {
+  top: 5rem;
+  right: 5%;
+  background: repeating-linear-gradient(
+    135deg,
+    #f8a1b1 0 8px,
+    #ffd96f 8px 16px
+  );
+  transform: rotate(11deg) scale(0.55);
+}
+.balloon-home-four {
+  bottom: 3rem;
+  left: 5%;
+  background:
+    radial-gradient(circle at 26% 28%, #fff 0 4%, transparent 5%),
+    radial-gradient(circle at 70% 68%, #e95472 0 5%, transparent 6%), #74bea8;
+  transform: rotate(-10deg) scale(0.6);
+}
 
 .graffiti {
   position: absolute;
   z-index: 0;
-  color: rgba(61,132,196,.13);
+  color: rgba(61, 132, 196, 0.13);
   font-family: "DM Sans Variable", system-ui, sans-serif;
   font-size: clamp(2.5rem, 9vw, 5.6rem);
   font-weight: 900;
-  letter-spacing: -.12em;
-  line-height: .8;
-  text-shadow: 2px 2px 0 rgba(255,255,255,.48), -1px -1px 0 rgba(23,50,89,.08);
+  letter-spacing: -0.12em;
+  line-height: 0.8;
+  text-shadow:
+    2px 2px 0 rgba(255, 255, 255, 0.48),
+    -1px -1px 0 rgba(23, 50, 89, 0.08);
   transform: rotate(-12deg);
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
 }
 
-.graffiti-kai { top: 16%; right: 9%; }
-.graffiti-party { bottom: 20%; left: 3%; font-size: clamp(1.4rem, 5vw, 2.5rem); transform: rotate(10deg); }
-.graffiti-home { top: 22rem; right: 5%; color: rgba(245,139,156,.18); transform: rotate(12deg); }
+.graffiti-kai {
+  top: 16%;
+  right: 9%;
+}
+.graffiti-party {
+  bottom: 20%;
+  left: 3%;
+  font-size: clamp(1.4rem, 5vw, 2.5rem);
+  transform: rotate(10deg);
+}
+.graffiti-home {
+  top: 22rem;
+  right: 5%;
+  color: rgba(245, 139, 156, 0.18);
+  transform: rotate(12deg);
+}
 
 .polaroid-frame {
   background: #ffffff;
@@ -1277,7 +1501,9 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -1291,6 +1517,11 @@ body {
 
 .last\:border-0:last-child {
   border-width: 0px;
+}
+
+.hover\:-translate-y-1:hover {
+  --tw-translate-y: -0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .focus\:border-cornflower:focus {
@@ -1310,6 +1541,11 @@ body {
 
 .disabled\:opacity-60:disabled {
   opacity: 0.6;
+}
+
+.group:hover .group-hover\:drop-shadow-\[0_30px_34px_rgba\(23\2c 50\2c 89\2c 0\.3\)\] {
+  --tw-drop-shadow: drop-shadow(0 30px 34px rgba(23,50,89,0.3));
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 @media (min-width: 640px) {
