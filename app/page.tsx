@@ -59,6 +59,11 @@ export default function Page() {
 
       {/* Event details */}
       <section className="relative z-10 mx-auto mt-12 max-w-2xl px-6">
+        <div className="balloon decor-behind balloon-details-one" aria-hidden />
+        <div className="balloon decor-behind balloon-details-two" aria-hidden />
+        <div className="graffiti decor-behind graffiti-details" aria-hidden>
+          POP!
+        </div>
         <div className="grand-card rounded-3xl p-7 sm:p-9">
           <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-cornflower">
             Event details
@@ -98,6 +103,7 @@ export default function Page() {
 
       {/* Map */}
       <section className="relative z-10 mx-auto mt-6 max-w-2xl px-6">
+        <div className="balloon decor-behind balloon-map-one" aria-hidden />
         <div className="grand-card rounded-3xl p-5 sm:p-7">
           <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.25em] text-cornflower">
             Find us here
@@ -111,6 +117,17 @@ export default function Page() {
 
       {/* Countdown */}
       <section className="relative z-10 mx-auto mt-6 max-w-2xl px-6">
+        <div
+          className="balloon decor-behind balloon-countdown-one"
+          aria-hidden
+        />
+        <div
+          className="balloon decor-behind balloon-countdown-two"
+          aria-hidden
+        />
+        <div className="graffiti decor-behind graffiti-countdown" aria-hidden>
+          TICK TOCK
+        </div>
         <div className="grand-card rounded-3xl p-7 sm:p-9">
           <Countdown targetISO={eventConfig.startsAtISO} />
         </div>
@@ -118,6 +135,11 @@ export default function Page() {
 
       {/* RSVP */}
       <section className="relative z-10 mx-auto mt-12 max-w-2xl px-6 text-center">
+        <div className="balloon decor-behind balloon-rsvp-one" aria-hidden />
+        <div className="balloon decor-behind balloon-rsvp-two" aria-hidden />
+        <div className="graffiti decor-behind graffiti-rsvp" aria-hidden>
+          SEE YOU!
+        </div>
         <div className="flourish-divider mx-auto mb-8" aria-hidden />
         <Link
           href="/rsvp"

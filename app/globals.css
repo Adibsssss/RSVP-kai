@@ -20,6 +20,7 @@ body {
       transparent 26rem
     ),
     #f3f9fe;
+  background-attachment: fixed;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -142,6 +143,88 @@ body {
     radial-gradient(circle at 26% 28%, #fff 0 4%, transparent 5%),
     radial-gradient(circle at 70% 68%, #e95472 0 5%, transparent 6%), #74bea8;
   transform: rotate(-10deg) scale(0.6);
+}
+/* Section-scoped decorations: reuse the balloon/graffiti shapes but pin them
+   *behind* their own card (negative z-index) so every section down the page
+   carries the motif, not just the hero. */
+.decor-behind {
+  z-index: -1;
+  opacity: 0.45;
+  filter: blur(2px);
+}
+
+.balloon-details-one {
+  top: -1.75rem;
+  left: -1.25rem;
+  background: #a8d7f3;
+  transform: rotate(-11deg) scale(0.5);
+}
+.balloon-details-two {
+  bottom: -2rem;
+  right: -1rem;
+  background: repeating-linear-gradient(
+    135deg,
+    #ffdd6c 0 7px,
+    #f58b9c 7px 14px,
+    #8cc8f1 14px 21px
+  );
+  transform: rotate(8deg) scale(0.46);
+}
+.balloon-map-one {
+  top: -2rem;
+  right: -1.5rem;
+  background: #78b7e4;
+  transform: rotate(10deg) scale(0.5);
+}
+.balloon-countdown-one {
+  bottom: -2.25rem;
+  left: -1.5rem;
+  background:
+    radial-gradient(circle at 25% 25%, #fff 0 4%, transparent 5%),
+    radial-gradient(circle at 70% 35%, #e95472 0 5%, transparent 6%),
+    radial-gradient(circle at 48% 70%, #ffd65a 0 6%, transparent 7%), #75c1ae;
+  transform: rotate(-10deg) scale(0.48);
+}
+.balloon-countdown-two {
+  top: -1.5rem;
+  right: -1rem;
+  background: #a8d7f3;
+  transform: rotate(9deg) scale(0.4);
+}
+.balloon-rsvp-one {
+  top: -1.5rem;
+  left: -1rem;
+  background: #77b7e2;
+  transform: rotate(-12deg) scale(0.55);
+}
+.balloon-rsvp-two {
+  bottom: -1.75rem;
+  right: -1.25rem;
+  background: repeating-linear-gradient(
+    135deg,
+    #f8a1b1 0 8px,
+    #ffd96f 8px 16px
+  );
+  transform: rotate(10deg) scale(0.5);
+}
+
+.graffiti-details {
+  top: -1rem;
+  right: -0.5rem;
+  font-size: clamp(1.4rem, 6vw, 2.4rem);
+  transform: rotate(9deg);
+}
+.graffiti-countdown {
+  bottom: -1.25rem;
+  left: -0.5rem;
+  font-size: clamp(1.3rem, 5.5vw, 2.2rem);
+  transform: rotate(-8deg);
+}
+.graffiti-rsvp {
+  top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  font-size: clamp(1.6rem, 6.5vw, 2.8rem);
 }
 
 .graffiti {
