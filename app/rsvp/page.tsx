@@ -9,7 +9,9 @@ export default function RsvpPage() {
   const [name, setName] = useState("");
   const [attending, setAttending] = useState<Attending | null>(null);
   const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">(
+    "idle",
+  );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   async function handleSubmit(event: FormEvent) {
@@ -27,13 +29,17 @@ export default function RsvpPage() {
         body: JSON.stringify({ name, attending, message }),
       });
       if (!res.ok) {
-        const body = (await res.json().catch(() => null)) as { error?: string } | null;
+        const body = (await res.json().catch(() => null)) as {
+          error?: string;
+        } | null;
         throw new Error(body?.error ?? "Could not save your RSVP.");
       }
       setStatus("saved");
     } catch (err) {
       setStatus("error");
-      setErrorMessage(err instanceof Error ? err.message : "Could not save your RSVP.");
+      setErrorMessage(
+        err instanceof Error ? err.message : "Could not save your RSVP.",
+      );
     }
   }
 
@@ -45,17 +51,31 @@ export default function RsvpPage() {
         </Link>
 
         <h1 className="mt-4 font-display text-3xl text-ink">Wedding RSVP</h1>
-        <p className="mt-1 text-[14px] text-muted">Kindly respond by the day before the event.</p>
+        <p className="mt-1 text-[14px] text-muted">
+          Kindly respond by the day before the event.
+        </p>
 
         {status === "saved" ? (
           <div className="mt-8 rounded-2xl border border-line bg-white/70 p-6 text-center">
             <p className="font-display text-xl text-ink">Response saved</p>
             <p className="mt-2 text-[14px] text-muted">
-              Thank you, {name}! We can&rsquo;t wait to celebrate with you.
+              {attending === "yes" ? (
+                <>
+                  Thank you, {name}! We can&rsquo;t wait to celebrate with you.
+                </>
+              ) : (
+                <>
+                  Thank you, {name}! We&rsquo;re sorry you can&rsquo;t make it,
+                  but we appreciate you letting us know.
+                </>
+              )}
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="mt-8 space-y-6 rounded-2xl border border-line bg-white/70 p-6">
+          <form
+            onSubmit={handleSubmit}
+            className="mt-8 space-y-6 rounded-2xl border border-line bg-white/70 p-6"
+          >
             <div>
               <label htmlFor="name" className="text-[13px] font-bold text-ink">
                 Your name
@@ -100,12 +120,17 @@ export default function RsvpPage() {
             </div>
 
             <div>
-              <label htmlFor="message" className="text-[13px] font-bold text-ink">
+              <label
+                htmlFor="message"
+                className="text-[13px] font-bold text-ink"
+              >
                 Questions or a message (optional)
               </label>
               {eventConfig.contacts.length > 0 && (
                 <p className="mt-1 text-[12px] text-muted">
-                  {eventConfig.contacts.map((c) => `${c.label}: ${c.number}`).join(" · ")}
+                  {eventConfig.contacts
+                    .map((c) => `${c.label}: ${c.number}`)
+                    .join(" · ")}
                 </p>
               )}
               <textarea
@@ -117,7 +142,9 @@ export default function RsvpPage() {
               />
             </div>
 
-            {errorMessage && <p className="text-[13px] text-red-600">{errorMessage}</p>}
+            {errorMessage && (
+              <p className="text-[13px] text-red-600">{errorMessage}</p>
+            )}
 
             <button
               type="submit"
