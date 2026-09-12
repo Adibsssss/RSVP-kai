@@ -57,7 +57,9 @@ function sheetRange(range: string): string {
   return `'${serverConfig.sheetName.replace(/'/g, "''")}'!${range}`;
 }
 
-async function updateValues(values: { range: string; values: string[][] }[]): Promise<void> {
+async function updateValues(
+  values: { range: string; values: string[][] }[],
+): Promise<void> {
   const token = await getAccessToken();
   const url = `${SHEETS_BASE}/${serverConfig.sheetId}/values:batchUpdate`;
   const res = await fetch(url, {
@@ -96,7 +98,10 @@ async function getSheetNumericId(token: string): Promise<number> {
     (sheet) => sheet.properties?.title === serverConfig.sheetName,
   )?.properties?.sheetId;
   if (sheetId === undefined) {
-    throw new SheetsApiError("Could not find the RSVP tab.", serverConfig.sheetName);
+    throw new SheetsApiError(
+      "Could not find the RSVP tab.",
+      serverConfig.sheetName,
+    );
   }
   return sheetId;
 }
@@ -105,35 +110,41 @@ async function formatResponseRows(): Promise<void> {
   const token = await getAccessToken();
   const sheetId = await getSheetNumericId(token);
 
-  const res = await fetch(`${SHEETS_BASE}/${serverConfig.sheetId}:batchUpdate`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      requests: [
-        {
-          repeatCell: {
-            range: {
-              sheetId,
-              startRowIndex: 5, // row 6; the first response row
-              endRowIndex: 505,
-              startColumnIndex: 0,
-              endColumnIndex: 4,
-            },
-            cell: {
-              userEnteredFormat: {
-                backgroundColor: { red: 1, green: 1, blue: 1 },
-                textFormat: { foregroundColor: { red: 0, green: 0, blue: 0 } },
+  const res = await fetch(
+    `${SHEETS_BASE}/${serverConfig.sheetId}:batchUpdate`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        requests: [
+          {
+            repeatCell: {
+              range: {
+                sheetId,
+                startRowIndex: 5, // row 6; the first response row
+                endRowIndex: 505,
+                startColumnIndex: 0,
+                endColumnIndex: 5, // A-E (Timestamp, Name, Attendance, Guests, Message)
               },
+              cell: {
+                userEnteredFormat: {
+                  backgroundColor: { red: 1, green: 1, blue: 1 },
+                  textFormat: {
+                    foregroundColor: { red: 0, green: 0, blue: 0 },
+                  },
+                },
+              },
+              fields:
+                "userEnteredFormat.backgroundColor,userEnteredFormat.textFormat.foregroundColor",
             },
-            fields: "userEnteredFormat.backgroundColor,userEnteredFormat.textFormat.foregroundColor",
           },
-        },
-      ],
-    }),
-  });
+        ],
+      }),
+    },
+  );
 
   if (!res.ok) {
     throw new SheetsApiError(
@@ -159,27 +170,44 @@ async function formatAttendanceCells(): Promise<void> {
 
   const data = (await valuesRes.json()) as { values?: string[][] };
   const requests = (data.values ?? []).flatMap((row, index) => {
-    const color = row[0] === "Attending"
-      ? { red: 0.13, green: 0.44, blue: 0.23 }
-      : row[0] === "Not attending"
-        ? { red: 0.62, green: 0.21, blue: 0.21 }
-        : null;
+    const color =
+      row[0] === "Attending"
+        ? { red: 0.13, green: 0.44, blue: 0.23 }
+        : row[0] === "Not attending"
+          ? { red: 0.62, green: 0.21, blue: 0.21 }
+          : null;
     if (!color) return [];
-    return [{
-      repeatCell: {
-        range: { sheetId, startRowIndex: index + 5, endRowIndex: index + 6, startColumnIndex: 2, endColumnIndex: 3 },
-        cell: { userEnteredFormat: { textFormat: { foregroundColor: color } } },
-        fields: "userEnteredFormat.textFormat.foregroundColor",
+    return [
+      {
+        repeatCell: {
+          range: {
+            sheetId,
+            startRowIndex: index + 5,
+            endRowIndex: index + 6,
+            startColumnIndex: 2,
+            endColumnIndex: 3,
+          },
+          cell: {
+            userEnteredFormat: { textFormat: { foregroundColor: color } },
+          },
+          fields: "userEnteredFormat.textFormat.foregroundColor",
+        },
       },
-    }];
+    ];
   });
   if (requests.length === 0) return;
 
-  const res = await fetch(`${SHEETS_BASE}/${serverConfig.sheetId}:batchUpdate`, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ requests }),
-  });
+  const res = await fetch(
+    `${SHEETS_BASE}/${serverConfig.sheetId}:batchUpdate`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ requests }),
+    },
+  );
   if (!res.ok) {
     throw new SheetsApiError(
       `Failed to format RSVP attendance (${res.status})`,
@@ -196,12 +224,19 @@ async function formatAttendanceCells(): Promise<void> {
  */
 async function prepareRsvpSheet(): Promise<void> {
   await updateValues([
-    { range: sheetRange("D5"), values: [["Message"]] },
-    { range: sheetRange("A4:C4"), values: [[
-      "=COUNTA(A6:A)",
-      '=COUNTIF(C6:C,"Attending")',
-      '=COUNTIF(C6:C,"Not attending")',
-    ]] },
+    { range: sheetRange("D5"), values: [["Guests"]] },
+    { range: sheetRange("E5"), values: [["Message"]] },
+    {
+      range: sheetRange("A4:D4"),
+      values: [
+        [
+          "=COUNTA(A6:A)",
+          '=COUNTIF(C6:C,"Attending")',
+          '=COUNTIF(C6:C,"Not attending")',
+          "=SUM(D6:D)",
+        ],
+      ],
+    },
   ]);
   await formatResponseRows();
   await formatAttendanceCells();
@@ -222,7 +257,7 @@ function readableTimestamp(): string {
 export async function appendRsvp(entry: RsvpSubmission): Promise<void> {
   await prepareRsvpSheet();
   const token = await getAccessToken();
-  const range = sheetRange("A5:D");
+  const range = sheetRange("A5:E");
   const url = `${SHEETS_BASE}/${serverConfig.sheetId}/values/${encodeURIComponent(
     range,
   )}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS`;
@@ -239,6 +274,7 @@ export async function appendRsvp(entry: RsvpSubmission): Promise<void> {
           readableTimestamp(),
           entry.name,
           entry.attending === "yes" ? "Attending" : "Not attending",
+          entry.attending === "yes" ? entry.guestCount : "",
           entry.message,
         ],
       ],
@@ -257,7 +293,7 @@ export async function appendRsvp(entry: RsvpSubmission): Promise<void> {
 /** Reads the supplied workbook's response rows, oldest first. */
 export async function listRsvps(): Promise<RsvpEntry[]> {
   const token = await getAccessToken();
-  const range = sheetRange("A6:D");
+  const range = sheetRange("A6:E");
   const url = `${SHEETS_BASE}/${serverConfig.sheetId}/values/${encodeURIComponent(
     range,
   )}`;
@@ -281,6 +317,7 @@ export async function listRsvps(): Promise<RsvpEntry[]> {
       timestamp: row[0] ?? "",
       name: row[1] ?? "",
       attending: row[2] === "Attending" ? "yes" : "no",
-      message: row[3] ?? "",
+      guestCount: Number(row[3]) || 0,
+      message: row[4] ?? "",
     }));
 }

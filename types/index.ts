@@ -3,6 +3,7 @@ export type Attending = "yes" | "no";
 export interface RsvpSubmission {
   name: string;
   attending: Attending;
+  guestCount: number;
   message: string;
 }
 

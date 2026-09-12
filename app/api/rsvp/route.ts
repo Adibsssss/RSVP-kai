@@ -5,11 +5,16 @@ import type { ApiErrorBody, RsvpSubmission } from "@/types";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-function validate(body: unknown): { ok: true; value: RsvpSubmission } | { ok: false; error: string } {
+function validate(
+  body: unknown,
+): { ok: true; value: RsvpSubmission } | { ok: false; error: string } {
   if (typeof body !== "object" || body === null) {
     return { ok: false, error: "Invalid request." };
   }
-  const { name, attending, message } = body as Record<string, unknown>;
+  const { name, attending, guestCount, message } = body as Record<
+    string,
+    unknown
+  >;
 
   if (typeof name !== "string" || name.trim() === "") {
     return { ok: false, error: "Please enter your name." };
@@ -21,11 +26,25 @@ function validate(body: unknown): { ok: true; value: RsvpSubmission } | { ok: fa
     return { ok: false, error: "Invalid request." };
   }
 
+  let guests = 0;
+  if (attending === "yes") {
+    const parsed =
+      typeof guestCount === "number" ? guestCount : Number(guestCount);
+    if (!Number.isInteger(parsed) || parsed < 1 || parsed > 20) {
+      return {
+        ok: false,
+        error: "Please tell us how many people are coming (1-20).",
+      };
+    }
+    guests = parsed;
+  }
+
   return {
     ok: true,
     value: {
       name: name.trim().slice(0, 200),
       attending,
+      guestCount: guests,
       message: message.trim().slice(0, 1000),
     },
   };
@@ -36,12 +55,18 @@ export async function POST(req: NextRequest) {
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json<ApiErrorBody>({ error: "Invalid request." }, { status: 400 });
+    return NextResponse.json<ApiErrorBody>(
+      { error: "Invalid request." },
+      { status: 400 },
+    );
   }
 
   const validated = validate(body);
   if (!validated.ok) {
-    return NextResponse.json<ApiErrorBody>({ error: validated.error }, { status: 400 });
+    return NextResponse.json<ApiErrorBody>(
+      { error: validated.error },
+      { status: 400 },
+    );
   }
 
   try {
@@ -63,13 +88,19 @@ export async function POST(req: NextRequest) {
 export async function GET() {
   try {
     const entries = await listRsvps();
-    return NextResponse.json({ entries }, { headers: { "Cache-Control": "no-store" } });
+    return NextResponse.json(
+      { entries },
+      { headers: { "Cache-Control": "no-store" } },
+    );
   } catch (err) {
     if (err instanceof SheetsApiError) {
       console.error("rsvp list Sheets error:", err.message, err.detail);
     } else {
       console.error("rsvp list unexpected error:", err);
     }
-    return NextResponse.json<ApiErrorBody>({ error: "Could not load RSVPs." }, { status: 502 });
+    return NextResponse.json<ApiErrorBody>(
+      { error: "Could not load RSVPs." },
+      { status: 502 },
+    );
   }
 }
