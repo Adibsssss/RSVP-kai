@@ -49,6 +49,7 @@ export default function RsvpPage() {
     }
   }
 
+
   return (
     <main className="min-h-screen px-6 py-14">
       <div className="mx-auto max-w-md">
@@ -56,7 +57,7 @@ export default function RsvpPage() {
           &larr; Back to invitation
         </Link>
 
-        <h1 className="mt-4 font-display text-3xl text-ink">Wedding RSVP</h1>
+        <h1 className="mt-4 font-display text-3xl text-ink">Birthday RSVP</h1>
         <p className="mt-1 text-[14px] text-muted">
           Kindly respond by the day before the event.
         </p>
